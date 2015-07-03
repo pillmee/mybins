@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# find and open multiple files using vi
+
+# find file(s) to open
+find_rslt=`find . -name "$1"`
+
+array=(${find_rslt// / })
+
+end=${#array[*]}
+showing_end=$(($end+1))
+
+if [ ${end} -eq 1 ]
+then
+	echo "	> Opening ${array[0]}"
+	gvim ${array[0]}
+	exit
+elif [ ${end} -eq 0 ]
+then
+	echo "	> Cannot find \"$1\""
+	exit
+fi
+
+# print found file paths
+echo ""
+for i in "${!array[@]}"
+do 
+	showing=$(($i+1))
+	echo "	[$showing] ${array[i]}"
+done
+
+# get to open file index from user
+echo ""
+printf %s "	> Select? [a|q] : "
+read idx
+
+if [ ${idx} = "q" ]
+then
+	exit
+elif [ ${idx} = "a" ]
+then
+	for i in "${!array[@]}"
+	do 
+		echo "	> Opening ${array[i]}"
+		gvim ${array[i]}
+	done
+
+	exit
+fi
+
+# open file
+real_idx=$(($idx-1))
+
+if [ ${real_idx} -ge ${end} ]
+then
+	echo "	> Index ${idx} is over range"
+	exit
+else
+	echo "	> Opening ${array[real_idx]}"
+	gvim ${array[real_idx]}
+fi

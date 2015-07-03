@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# run git pull recursively
+
+find_rslt=`find . -name ".git"`
+work_path=`pwd`
+
+array=(${find_rslt// / })
+
+for gitpath in ${array[@]}
+do
+	cd ${gitpath}
+	cd ..
+	echo "Pulling `pwd`"
+	git pull
+	cd ${work_path}
+done
