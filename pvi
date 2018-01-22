@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+	echo "error"
+	exit
+fi
+
+echo "#!/usr/bin/python" > $1
+chmod 755 $1
+vi $1

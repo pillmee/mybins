@@ -1,0 +1,10 @@
+#!/bin/sh
+
+CS_FILES=${PWD}/ccscope.files
+CS_OUT=${PWD}/ccscope.out
+
+echo ${PWD}
+
+rm -rf ${CS_FILES} ${CS_OUT}
+find ${PWD}/. \( -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name '*.S' \) -print > ${CS_FILES}
+cscope -b -i ${CS_FILES} -f ${CS_OUT}
