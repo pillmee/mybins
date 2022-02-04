@@ -1,0 +1,10 @@
+alias c='cd ..'
+alias la='ls -al'
+
+which gvim 1>/dev/null
+if [ $? ] 
+then
+	alias vi='gvim'
+fi
+
+PATH=~/scripts:$PATH
